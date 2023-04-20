@@ -1,7 +1,7 @@
 import 'package:favorite_place_app/screens/place_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_config/flutter_config.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -30,7 +30,7 @@ final theme = ThemeData().copyWith(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //추가
-  await FlutterConfig.loadEnvVariables(); //추가
+  await dotenv.load(fileName: ".env");
   runApp(const ProviderScope(child: MyApp()));
 }
 

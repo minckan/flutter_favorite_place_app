@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:favorite_place_app/models/place.dart';
 import 'package:favorite_place_app/providers/user_places_provider.dart';
 import 'package:favorite_place_app/widgets/image_input.dart';
 import 'package:favorite_place_app/widgets/location_input.dart';
@@ -16,20 +17,21 @@ class AddPlaceScreen extends ConsumerStatefulWidget {
 class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   final _titleController = TextEditingController();
   File? _selectedImage;
+  PlaceLocation? _selectedLocation;
 
-  void _saveItem() async {
+  void _saveItem() {
     final enteredTitle = _titleController.text;
 
-    if (enteredTitle.isEmpty || _selectedImage == null) {
+    if (enteredTitle.isEmpty ||
+        _selectedImage == null ||
+        _selectedLocation == null) {
       return;
     }
-    ref.read(placesProvider.notifier).addPlace(enteredTitle, _selectedImage!);
-    Navigator.of(context).pop(
-        // Place(
-        //   title: enteredTitle,
-        //   image: _selectedImage!,
-        // ),
-        );
+    ref
+        .read(placesProvider.notifier)
+        .addPlace(enteredTitle, _selectedImage!, _selectedLocation!);
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -55,9 +57,16 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                     color: Theme.of(context).colorScheme.onBackground),
               ),
               const SizedBox(height: 16),
-              ImageInput(onPickImage: (image) => {_selectedImage = image}),
+              ImageInput(
+                onPickImage: (image) => {
+                  _selectedImage = image,
+                },
+              ),
               const SizedBox(height: 16),
-              const LocationInput(),
+              LocationInput(
+                onSelectedLocation: (location) =>
+                    {_selectedLocation = location},
+              ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

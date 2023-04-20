@@ -46,3 +46,7 @@ app.*.map.json
 
 # API_KEYS
 .env*
+local.properties
+/build
+.gradle
+ios/Runner/Storage.swift

@@ -7,14 +7,6 @@ class PlaceList extends StatelessWidget {
 
   final List<Place> places;
 
-  void handleEachPlaceButton(BuildContext context, Place place) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => PlaceDetailScreen(place: place),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (places.isEmpty) {
@@ -31,20 +23,29 @@ class PlaceList extends StatelessWidget {
     return ListView.builder(
       itemCount: places.length,
       itemBuilder: (ctx, index) {
-        return InkWell(
-          onTap: () => handleEachPlaceButton(context, places[index]),
-          splashColor: Theme.of(context).colorScheme.primary,
-          child: ListTile(
-            leading: CircleAvatar(
-              radius: 26,
-              backgroundImage: FileImage(places[index].image),
-            ),
-            title: Text(
-              places[index].title,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
-            ),
+        return ListTile(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => PlaceDetailScreen(place: places[index]),
+              ),
+            );
+          },
+          leading: CircleAvatar(
+            radius: 26,
+            backgroundImage: FileImage(places[index].image),
+          ),
+          title: Text(
+            places[index].title,
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+          ),
+          subtitle: Text(
+            places[index].location.address,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
           ),
         );
       },
