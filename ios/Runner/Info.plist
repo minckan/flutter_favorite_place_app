@@ -55,5 +55,9 @@
 	<string>Take your favorite place image.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The location for your favorite place.</string>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>

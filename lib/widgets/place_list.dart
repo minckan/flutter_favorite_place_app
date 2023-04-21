@@ -23,6 +23,7 @@ class PlaceList extends StatelessWidget {
     return ListView.builder(
       itemCount: places.length,
       itemBuilder: (ctx, index) {
+        print('DEBUG: ${places[index].image}');
         return ListTile(
           onTap: () {
             Navigator.of(context).push(
